@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+       Copyright 2009-2012 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:由于mybatis中的select 中的ID不能重复,因此存在命名空间 -->
+<mapper namespace="Message">
+
+<!-- type:类的路径   id:返回的结果 -->
+  <resultMap type="com.mybatis.bean.Message" id="MessageResult">
+    <!--column是数据库中的字段    property是Java这边对象的属性名  下面的result便签也是一样的道理 jdbcType数据类型
+    	不明白的可以到java.sql.types中查看常亮
+    	注意:这里的jdbcType是指数据库的类型
+    	
+    -->
+    <id column="ID" jdbcType="INTEGER" property="ID"/>
+    <result column="COMMAND" jdbcType="VARCHAR" property="COMMAND"/>
+    <result column="DESCRIPTINO" jdbcType="VARCHAR" property="DESCRIPTINO"/>
+    <result column="CONTENT" jdbcType="VARCHAR" property="CONTENT"/>
+  </resultMap>
+
+  <!-- id:在dao层中通过select调用的名称,个人喜欢和到层总的方法名一致
+  		这里的resultMap是指向上面那个<resultMap >便签的ID
+   -->
+  <select id="queryList" parameterType="long" resultMap="MessageResult">
+  	 select ID,COMMAND,DESCRIPTINO,CONTENT  FROM MESSAGE where 1=1 
+  </select>
+</mapper>

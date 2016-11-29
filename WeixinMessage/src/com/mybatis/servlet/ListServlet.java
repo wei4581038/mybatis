@@ -15,11 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mybatis.bean.Message;
 import com.mybatis.jdbc.JdbcUtil;
+import com.mybatis.server.MessageService;
 
 /**
  * �б�ҳ���ʼ������
  * @author qinjiwei
- *
  */
 @SuppressWarnings("serial")
 public class ListServlet extends HttpServlet {
@@ -31,38 +31,9 @@ public class ListServlet extends HttpServlet {
 		String description = req.getParameter("DESCRIPTINO");
 		req.setAttribute("COMMAND", command);
 		req.setAttribute("DESCRIPTINO", description);
-		try {
-			Connection connection = JdbcUtil.getConnection();
-			StringBuilder sql = new StringBuilder("select ID,COMMAND,DESCRIPTINO,CONTENT  FROM MESSAGE where 1=1 ");
-		    List<String> paramList = new ArrayList<String>();
-			if(command!=null && !"".equals(command.trim())){
-								
-				sql.append("and COMMAND=?");
-				paramList.add(command);
-			}
-			if(description!=null && !"".equals(description.trim())){
-				sql.append("and DESCRIPTINO like '%' ? '%'");
-				paramList.add(description);
-			}
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
-			for(int i = 0;i<paramList.size();i++){
-				statement.setString(i + 1,paramList.get(i));
-			}
-			ResultSet rs = statement.executeQuery();
-			List<Message> listMessage = new ArrayList<Message>();
-			while(rs.next()){
-				Message message = new Message();
-			    listMessage.add(message);
-			    message.setID(rs.getString("ID"));
-			    message.setCOMMAND(rs.getString("COMMAND"));
-			    message.setCONTENT(rs.getString("CONTENT"));
-			    message.setDESCRIPTINO(rs.getString("DESCRIPTINO"));
-			}
-			req.setAttribute("messageList", listMessage);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		MessageService messageService = new MessageService();
+		req.setAttribute("messageList", messageService.queryList(command, description));
 		
 		req.getRequestDispatcher("/WEB-INF/jsp/back/list.jsp").forward(req, resp);
 	}
