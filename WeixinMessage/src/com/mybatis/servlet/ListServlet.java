@@ -29,6 +29,8 @@ public class ListServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String command = req.getParameter("COMMAND");
 		String description = req.getParameter("DESCRIPTINO");
+		req.setAttribute("COMMAND", command);
+		req.setAttribute("DESCRIPTINO", description);
 		try {
 			Connection connection = JdbcUtil.getConnection();
 			StringBuilder sql = new StringBuilder("select ID,COMMAND,DESCRIPTINO,CONTENT  FROM MESSAGE where 1=1 ");

@@ -23,11 +23,11 @@
 							<tr>
 								<td width="90" align="right">指令名称：</td>
 								<td>
-									<input name="COMMAND" type="text" class="allInput" value=""/>
+									<input name="COMMAND" type="text" class="allInput" value="${COMMAND}"/>
 								</td>
 								<td width="90" align="right">描述：</td>
 								<td>
-									<input name="DESCRIPTINO" type="text" class="allInput" value=""/>
+									<input name="DESCRIPTINO" type="text" class="allInput" value="${DESCRIPTINO}"/>
 								</td>
 	                            <td width="85" align="right"><input type="submit" class="tabSub" value="查 询" /></td>
 	       					</tr>
@@ -56,36 +56,6 @@
 									</td>
 								</tr>
 								</c:forEach>
-								<tr style="background-color:#ECF6EE;">
-									<td><input type="checkbox" /></td>
-									<td>2</td>
-									<td>演示值1</td>
-									<td>演示值2</td>
-									<td>
-										<a href="#">修改</a>&nbsp;&nbsp;&nbsp;
-										<a href="#">删除</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" /></td>
-									<td>3</td>
-									<td>演示值1</td>
-									<td>演示值2</td>
-									<td>
-										<a href="#">修改</a>&nbsp;&nbsp;&nbsp;
-										<a href="#">删除</a>
-									</td>
-								</tr>
-								<tr style="background-color:#ECF6EE;">
-									<td><input type="checkbox" /></td>
-									<td>4</td>
-									<td>演示值1</td>
-									<td>演示值2</td>
-									<td>
-										<a href="#">修改</a>&nbsp;&nbsp;&nbsp;
-										<a href="#">删除</a>
-									</td>
-								</tr>
 							</tbody>
 						</table>
 						<div class='page fix'>
