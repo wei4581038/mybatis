@@ -23,8 +23,11 @@ public class MessageDao {
 		List<Message> messagesList = new ArrayList<Message>();
 		try {
 			session = dbAccess.getSqlSession();
+			Message message = new Message();
+			message.setCOMMAND(command);
+			message.setDESCRIPTINO(description);
 			//通过session执行SQL语句
-			messagesList = session.selectList("Message.queryList");
+			messagesList = session.selectList("Message.queryList",message);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

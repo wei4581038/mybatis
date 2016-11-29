@@ -1,6 +1,9 @@
 package com.mybatis.bean;
+
+import java.util.Calendar;
+
 /**
- *  ÏûÏ¢±í¶ÔÓ¦µÄÊµÌåÀà
+ *  ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½
  * @author qinjiwei
  *
  */
@@ -10,6 +13,9 @@ public class Message {
 	private String COMMAND;
 	private String DESCRIPTINO;
 	private String CONTENT;
+	
+
+	
 	public String getID() {
 		return ID;
 	}
