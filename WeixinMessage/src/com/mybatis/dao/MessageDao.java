@@ -15,6 +15,25 @@ import com.mybatis.db.DBAccess;
 import com.mybatis.jdbc.JdbcUtil;
 
 public class MessageDao {
+	/**
+	 * 单条删除
+	 * @param Id
+	 */
+	public void deleteOne(int Id){
+		DBAccess access = new DBAccess();
+		SqlSession sqlSession = null;
+		try {
+			sqlSession = access.getSqlSession();
+			sqlSession.delete("Message.deleteOne",Id);
+			sqlSession.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(sqlSession != null){
+				sqlSession.close();
+			}
+		}
+	}
 	
 	/*---------------------------------MyBatis-----------------------------------------*/
 	public List<Message> queryList(String command,String description){
@@ -41,7 +60,7 @@ public class MessageDao {
 	
 	public static void main(String[] args) {
 		MessageDao messageDao = new MessageDao();
-		messageDao.queryList("", "");
+		messageDao.deleteOne(6);
 	}
 	/*--------------------------------JDBC------------------------------------------*/
 //	public List<Message> queryList(String command,String description){

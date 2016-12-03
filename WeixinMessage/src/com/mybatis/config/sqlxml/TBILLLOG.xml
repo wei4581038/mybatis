@@ -3,19 +3,22 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace:由于mybatis中的select 中的ID不能重复,因此存在命名空间 -->
-<mapper namespace="Message">
+<mapper namespace="TBILLLOG">
 
 <!-- type:类的路径   id:返回的结果 -->
-  <resultMap type="com.mybatis.bean.Message" id="MessageResult">
+  <resultMap type="com.mybatis.bean.TBILLLOG" id="TBILLLOGResult">
     <!--column是数据库中的字段    property是Java这边对象的属性名  下面的result便签也是一样的道理 jdbcType数据类型
     	不明白的可以到java.sql.types中查看常亮
     	注意:这里的jdbcType是指数据库的类型
     	
     -->
-    <id column="ID" jdbcType="INTEGER" property="ID"/>
-    <result column="COMMAND" jdbcType="VARCHAR" property="COMMAND"/>
-    <result column="DESCRIPTINO" jdbcType="VARCHAR" property="DESCRIPTINO"/>
-    <result column="CONTENT" jdbcType="VARCHAR" property="CONTENT"/>
+    <id column="PARTID" jdbcType="INTEGER" property="PARTID"/>
+    <result column="WAITBEGIN" jdbcType="DATE" property="WAITBEGIN"/>
+    <result column="CALLEND" jdbcType="DATE" property="CALLEND"/>
+    <result column="DEVICENO" jdbcType="INTEGER" property="DEVICENO"/>
+    <result column="RELEASECAUSE" jdbcType="INTEGER" property="RELEASECAUSE"/>
+    <result column="SKILLID" jdbcType="INTEGER" property="SKILLID"/>
+   
   </resultMap>
 
   <!-- id:在dao层中通过select调用的名称,个人喜欢和到层总的方法名一致
@@ -23,18 +26,13 @@
   		&&转译:&amp;&amp; 可以使用 and 
   		""转译:&quot;&quot;
   		#{}:写法上和OGNL一样,但是在这里并不具备OGNL的特性
+  		 select PARTID,WAITBEGIN,CALLEND,DEVICENO,RELEASECAUSE,SKILLID  FROM ${yue} where 1=1
    -->
-  <select id="queryList" parameterType="com.mybatis.bean.Message" resultMap="MessageResult">
-  	 select ID,COMMAND,DESCRIPTINO,CONTENT  FROM MESSAGE where 1=1 
-  	 <if test="COMMAND !=null and !&quot;&quot;.equals(COMMAND.trim())">
-  	 	and COMMAND=#{COMMAND}
-  	 </if>
-  	 <if test="DESCRIPTINO !=null and !&quot;&quot;.equals(DESCRIPTINO.trim())">
-  	 	and DESCRIPTINO like '%' #{DESCRIPTINO} '%'
+  <select id="querytag" parameterType="com.mybatis.bean.TBILLLOG" statementType="STATEMENT" resultMap="TBILLLOGResult">
+  	select PARTID,WAITBEGIN,CALLEND,DEVICENO,RELEASECAUSE,SKILLID  FROM tbilllog${yue} where 1=1 
+  	 <if test="startDate != null">
+  	 	and WAITBEGIN>${startDate}
   	 </if>
   </select>
   
-  <delete id="deleteOne" parameterType="int">
-  		delete from MESSAGE where ID =#{_parameter}
-  </delete>
 </mapper>

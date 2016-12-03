@@ -31,6 +31,7 @@
 	<!-- 导入配置文件  如有有多个配置文件 可以写多个 mapper标签即可-->
   <mappers>
     <mapper resource="com/mybatis/config/sqlxml/Message.xml"/>
+    <mapper resource="com/mybatis/config/sqlxml/TBILLLOG.xml"/>
   </mappers>
 
 </configuration>

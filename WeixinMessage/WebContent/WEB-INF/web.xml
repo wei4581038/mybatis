@@ -13,4 +13,14 @@
   		<servlet-name>ListServlet</servlet-name>
   		<url-pattern>/list.action</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>DeleteOne</servlet-name>
+  	<servlet-class>com.mybatis.servlet.DeleteOneServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>DeleteOne</servlet-name>
+  	<url-pattern>/DeleteOne.action</url-pattern>
+  </servlet-mapping>
 </web-app>
