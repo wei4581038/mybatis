@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -36,17 +37,17 @@ public class MessageDao {
 	}
 	
 	/*---------------------------------MyBatis-----------------------------------------*/
-	public List<Message> queryList(String command,String description){
+	public List<Message> queryList(Map<String, Object> parameter){
 		DBAccess dbAccess = new DBAccess();
 		SqlSession session = null;
 		List<Message> messagesList = new ArrayList<Message>();
 		try {
 			session = dbAccess.getSqlSession();
-			Message message = new Message();
-			message.setCOMMAND(command);
-			message.setDESCRIPTINO(description);
+			
 			//通过session执行SQL语句
-			messagesList = session.selectList("Message.queryList",message);
+			
+			IMessage mapper = session.getMapper(IMessage.class);
+			messagesList = mapper.queryMessageListByPage(parameter);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,8 +60,9 @@ public class MessageDao {
 	}
 	
 	public static void main(String[] args) {
-		MessageDao messageDao = new MessageDao();
-		messageDao.deleteOne(6);
+		//MessageDao messageDao = new MessageDao();
+	//	messageDao.deleteOne(6);
+	
 	}
 	/*--------------------------------JDBC------------------------------------------*/
 //	public List<Message> queryList(String command,String description){

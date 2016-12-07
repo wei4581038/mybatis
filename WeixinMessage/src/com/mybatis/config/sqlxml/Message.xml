@@ -3,7 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace:由于mybatis中的select 中的ID不能重复,因此存在命名空间 -->
-<mapper namespace="Message">
+<mapper namespace="com.mybatis.dao.IMessage">
 
 <!-- type:类的路径   id:返回的结果 -->
   <resultMap type="com.mybatis.bean.Message" id="MessageResult">
@@ -24,16 +24,20 @@
   		""转译:&quot;&quot;
   		#{}:写法上和OGNL一样,但是在这里并不具备OGNL的特性
    -->
-  <select id="queryList" parameterType="com.mybatis.bean.Message" resultMap="MessageResult">
-  	 select ID,COMMAND,DESCRIPTINO,CONTENT  FROM MESSAGE where 1=1 
-  	 <if test="COMMAND !=null and !&quot;&quot;.equals(COMMAND.trim())">
-  	 	and COMMAND=#{COMMAND}
-  	 </if>
-  	 <if test="DESCRIPTINO !=null and !&quot;&quot;.equals(DESCRIPTINO.trim())">
-  	 	and DESCRIPTINO like '%' #{DESCRIPTINO} '%'
-  	 </if>
+  <select id="queryMessageListByPage" parameterType="com.mybatis.bean.Message" resultMap="MessageResult">
+  	 
+  	 select <include refid="columns"/>  FROM MESSAGE
+  	 <where>	
+  		 <if test="COMMAND !=null and !&quot;&quot;.equals(COMMAND.trim())">
+  	 		and COMMAND=#{COMMAND}
+  		 </if>
+  		 <if test="DESCRIPTINO !=null and !&quot;&quot;.equals(DESCRIPTINO.trim())">
+  	 		and DESCRIPTINO like '%' #{DESCRIPTINO} '%'
+  		 </if>
+  	 </where>
+  	 order by ID
   </select>
-  
+  <sql id="columns">ID,COMMAND,DESCRIPTINO,CONTENT</sql>
   <delete id="deleteOne" parameterType="int">
   		delete from MESSAGE where ID =#{_parameter}
   </delete>
